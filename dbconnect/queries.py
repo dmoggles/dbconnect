@@ -43,7 +43,7 @@ class FbRefQuery(DataQuery):
 
 
 class WhoscoredQuery(DataQuery):
-    def query(self, columns: List[str] = None, **kwargs):
+    def query(self, columns: List[str] = None, distinct=False, **kwargs):
         """
         Get all teh data from whoscored table
         """
@@ -54,6 +54,8 @@ class WhoscoredQuery(DataQuery):
             query = query.select(*columns)
         else:
             query = query.select(table.star)
+        if distinct:
+            query = query.distinct()
         criterions = []
         if "season" in kwargs:
             criterions.append(table.season == kwargs["season"])
@@ -65,6 +67,8 @@ class WhoscoredQuery(DataQuery):
             criterions.append(table.opponent == kwargs["opponent"])
         if "league" in kwargs:
             criterions.append(table.competition == kwargs["league"])
+        if 'match_ids' in kwargs:
+            criterions.append(table.matchid.isin(kwargs['match_ids']))
         if 'date' in kwargs:
             if isinstance(kwargs['date'], str):
                 if kwargs['date'] == 'latest':
