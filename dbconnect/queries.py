@@ -95,3 +95,14 @@ class WhoscoredMetaQuery(DataQuery):
         if match_ids:
             query = query.where(table.matchid.isin(match_ids))
         return QueryWrapper(query, self._engine)
+
+
+class WhoscoredPositions(DataQuery):
+    def query(self):
+        """
+        Get all the data from the whoscored positions table.
+        """
+        table = Table("whoscored_positions")
+
+        query = MySQLQuery.from_(table).select(table.star)
+        return QueryWrapper(query, self._engine)
