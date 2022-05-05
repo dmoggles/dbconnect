@@ -57,6 +57,8 @@ class WhoscoredQuery(DataQuery):
         if distinct:
             query = query.distinct()
         criterions = []
+        if 'players' in kwargs:
+            criterions.append(table.player.isin(kwargs['players']))
         if "season" in kwargs:
             criterions.append(table.season == kwargs["season"])
         if "team" in kwargs:
