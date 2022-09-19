@@ -2,3 +2,4 @@ sqlalchemy
 mysqlclient 
 pandas
 pypika
+git+http://github.com/dmoggles/footmav

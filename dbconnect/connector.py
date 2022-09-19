@@ -1,4 +1,7 @@
 from sqlalchemy import create_engine
+import pandas as pd
+from footmav.data_definitions.whoscored.constants import EventType
+import json
 
 USER = "public"
 
@@ -13,3 +16,18 @@ def mysql_engine(password, user=USER, host=HOST, port="3306", database=DATABASE)
         )
     )
     return engine
+
+
+class Connection:
+    def __init__(self, password, user=USER, host=HOST, port="3306", database=DATABASE):
+        self.engine = mysql_engine(password, user, host, port, database)
+        
+    def query(self, query):
+        return pd.read_sql(query, self.engine)
+
+    def wsquery(self, query):
+        data = pd.read_sql(query, self.engine)
+        data['event_type'] = data['event_type'].apply(lambda x: EventType(x))
+        data['qualifiers'] = data['qualifiers'].apply(lambda x: json.loads(x))
+        return data
+
