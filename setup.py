@@ -24,6 +24,7 @@ setup(
         "mysqlclient",
         "pandas",
         "pypika",
+        "git+http://github.com/dmoggles/footmav"
     ],
     classifiers=[
         "Development Status :: 1 - Planning",
