@@ -1,5 +1,5 @@
 sqlalchemy
-mysqlclient 
+mysql-connector-python
 pandas
 pypika
 git+http://github.com/dmoggles/footmav
