@@ -21,7 +21,7 @@ setup(
     install_requires=[
         "setuptools>=45.0",
         "sqlalchemy",
-        "mysqlclient",
+        "mysql-connector-python",
         "pandas",
         "pypika",
         "footmav @ git+http://github.com/dmoggles/footmav"
