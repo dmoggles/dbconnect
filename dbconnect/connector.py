@@ -1,3 +1,4 @@
+from debugpy import connect
 from sqlalchemy import create_engine
 import pandas as pd
 from footmav.data_definitions.whoscored.constants import EventType
@@ -9,12 +10,19 @@ HOST = "5.2.16.131"
 DATABASE = "football_data"
 
 
-def mysql_engine(password, user=USER, host=HOST, port="3306", database=DATABASE):
-    engine = create_engine(
-        "mysql+mysqlconnector://{0}:{1}@{2}:{3}/{4}?charset=utf8".format(
-            user, password, host, port, database
+def mysql_engine(password, user=USER, host=HOST, port="3306", database=DATABASE, connector='mysqlclient'):
+    if connector=='mysqlclient':
+        engine = create_engine(
+            "mysql://{0}:{1}@{2}:{3}/{4}?charset=utf8".format(
+                user, password, host, port, database
+            )
         )
-    )
+    else:
+        engine = create_engine(
+            "mysql+mysqlconnector://{0}:{1}@{2}:{3}/{4}?charset=utf8".format(
+                user, password, host, port, database
+            )
+        )
     return engine
 
 
