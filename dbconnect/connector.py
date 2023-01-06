@@ -1,4 +1,3 @@
-from debugpy import connect
 from sqlalchemy import create_engine
 import pandas as pd
 from footmav.data_definitions.whoscored.constants import EventType
