@@ -1,4 +1,4 @@
-sqlalchemy
+sqlalchemy<2.0.0
 mysql-connector-python
 pandas
 pypika
