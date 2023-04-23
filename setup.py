@@ -20,7 +20,7 @@ setup(
     packages=find_namespace_packages(where="."),
     install_requires=[
         "setuptools>=45.0",
-        "sqlalchemy",
+        "sqlalchemy<2.0.0",
         "mysql-connector-python",
         "mysqlclient",
         "pandas",
