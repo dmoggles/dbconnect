@@ -37,4 +37,6 @@ class Connection:
         data['event_type'] = data['event_type'].apply(lambda x: EventType(x))
         data['qualifiers'] = data['qualifiers'].apply(lambda x: json.loads(x))
         return data
-
+        
+    def __del__(self):
+        self.engine.dispose()
