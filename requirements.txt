@@ -1,6 +1,4 @@
-sqlalchemy<2.0.0
+sqlalchemy
 mysql-connector-python
 pandas
-pypika
-git+http://github.com/dmoggles/footmav
 mysqlclient 

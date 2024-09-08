@@ -1,6 +1,6 @@
 from sqlalchemy import create_engine
 import pandas as pd
-from footmav.data_definitions.whoscored.constants import EventType
+from typing import Callable
 import json
 
 USER = "public"
@@ -29,13 +29,12 @@ class Connection:
     def __init__(self, password, user=USER, host=HOST, port="3306", database=DATABASE):
         self.engine = mysql_engine(password, user, host, port, database)
         
-    def query(self, query):
-        return pd.read_sql(query, self.engine)
-
-    def wsquery(self, query):
-        data = pd.read_sql(query, self.engine)
-        data['event_type'] = data['event_type'].apply(lambda x: EventType(x))
-        data['qualifiers'] = data['qualifiers'].apply(lambda x: json.loads(x))
+    def query(self, query:str, event_type_handler:Callable[[pd.Series], pd.Series]=None):
+        data =  pd.read_sql(query, self.engine)
+        if "qualifiers" in data.columns:
+            data['qualifiers'] = data['qualifiers'].apply(lambda x: json.loads(x))
+        if event_type_handler and "event_type" in data.columns:
+            data['event_type'] = data['event_type'].apply(event_type_handler)
         return data
         
     def __del__(self):
