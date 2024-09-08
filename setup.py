@@ -20,12 +20,10 @@ setup(
     packages=find_namespace_packages(where="."),
     install_requires=[
         "setuptools>=45.0",
-        "sqlalchemy<2.0.0",
+        "sqlalchemy",
         "mysql-connector-python",
         "mysqlclient",
         "pandas",
-        "pypika",
-        "footmav @ git+http://github.com/dmoggles/footmav"
     ],
     classifiers=[
         "Development Status :: 1 - Planning",
